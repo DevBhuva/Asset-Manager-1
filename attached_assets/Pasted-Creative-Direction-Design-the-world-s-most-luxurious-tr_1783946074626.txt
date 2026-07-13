@@ -1,0 +1,200 @@
+Creative Direction
+
+Design the world's most luxurious travel website ever created. The experience should feel so premium that users stop scrolling within the first three seconds and immediately associate the brand with exclusivity, trust, elegance, and world-class travel. Every interaction must feel handcrafted. There should be no template-like layouts, no generic travel cards, and no ordinary sections. The design should be cinematic, editorial, immersive, and emotionally engaging.
+
+Design Philosophy
+
+The interface should feel like:
+
+A luxury fashion magazine
+A five-star hotel lobby
+A private jet experience
+A high-end coffee table book
+A cinematic travel documentary
+
+Not like a typical travel agency website.
+
+Visual Language
+
+Imagine entering the homepage and seeing:
+
+Full-screen cinematic aerial video
+Slow, elegant animations
+Beautiful serif typography
+Minimal text
+Massive edge-to-edge photography
+Smooth scrolling with subtle parallax
+Glassmorphism only where it enhances the design
+Warm luxury lighting
+Gold accents used sparingly
+Deep charcoal backgrounds mixed with warm ivory sections
+Large amounts of whitespace
+
+Every section should feel like a luxury editorial spread.
+
+Layout Rules
+
+Never use cramped layouts.
+
+Every section should have breathing space.
+
+No boxed layouts.
+
+No obvious grids.
+
+Use overlapping imagery.
+
+Use asymmetrical layouts.
+
+Alternate image and text rhythm.
+
+Mix large and small visual elements to create movement.
+
+Hero Experience
+
+The hero should not simply display a destination.
+
+It should create emotion.
+
+Use a cinematic video with transitions between:
+
+Maldives sunrise
+Santorini sunset
+Dubai skyline at night
+Swiss Alps
+African safari
+Northern Lights
+Luxury cruise
+Private island
+Helicopter landing
+Infinity pool
+
+Overlay with elegant typography:
+
+The World, Curated for the Few.
+
+Then a subtle supporting line and a refined call-to-action such as Begin Your Journey.
+
+As the user scrolls, the next section should appear through a cinematic reveal rather than a hard cut.
+
+Storytelling
+
+Instead of "Our Packages", tell a story.
+
+Dream
+Discover
+Curate
+Experience
+Remember
+
+Guide visitors emotionally rather than presenting information.
+
+Images
+
+Every image must look like it belongs in a luxury travel magazine.
+
+Requirements:
+
+Professional photography
+Warm cinematic color grading
+Golden hour lighting
+High resolution
+Large focal subjects
+No obvious stock-photo feel
+Full-bleed sections
+Smooth zoom on hover
+Motion
+
+Animations should be slow and confident.
+
+Fade reveals
+Parallax backgrounds
+Gentle image scaling
+Elegant text transitions
+Smooth page transitions
+Mouse-follow highlights
+Soft hover elevation
+Luxury loading animation
+
+Nothing should feel rushed or flashy.
+
+Premium Sections
+
+Instead of generic sections, include:
+
+Curated Journeys
+Signature Experiences
+Destinations Beyond Ordinary
+Private Villas Collection
+Luxury Cruises
+Wellness Escapes
+Honeymoon Collection
+Family Retreats
+Adventure Expeditions
+Concierge Services
+Member Privileges
+Stories From Our Travelers
+World Map Explorer
+Featured Resorts
+Travel Journal
+Instagram Moments
+Interactive Experiences
+
+Create memorable interactions:
+
+Interactive 3D globe with destinations
+Animated world map
+Scroll-controlled video sequences
+Before/after travel mood transitions
+AI itinerary planner
+Luxury destination quiz
+Hover-reveal destination stories
+Animated timeline for trip planning
+Booking Experience
+
+Replace a plain booking form with a luxury journey planner.
+
+Step 1: Where do you dream of going?
+
+Step 2: When do you want to travel?
+
+Step 3: Who are you travelling with?
+
+Step 4: What's your preferred experience?
+
+Beach
+Mountains
+Adventure
+Romance
+Wellness
+Cruise
+Safari
+Culture
+
+Step 5: Budget
+
+Finish with:
+
+Your Personal Travel Curator Will Contact You Within 24 Hours.
+
+Technology Stack
+Next.js
+React
+Tailwind CSS
+Framer Motion
+GSAP (for selected interactions)
+Lenis Smooth Scroll
+Three.js or React Three Fiber (interactive globe or subtle 3D elements)
+Shadcn UI
+TypeScript
+Performance Goals
+Lighthouse score above 95
+Mobile-first
+WCAG accessibility
+Fast image loading
+SEO-friendly semantic HTML
+Final Goal
+
+When someone lands on the website, they should think:
+
+"This doesn't feel like a travel agency. It feels like a luxury travel concierge for people who expect exceptional experiences."
