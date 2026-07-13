@@ -23,7 +23,7 @@ const queryClient = new QueryClient();
 
 function Router() {
   return (
-    <div className="flex flex-col min-h-screen bg-background text-foreground selection:bg-primary/30 selection:text-primary">
+    <div className="flex flex-col min-h-screen bg-background text-foreground">
       <Navbar />
       <main className="flex-grow">
         <Switch>

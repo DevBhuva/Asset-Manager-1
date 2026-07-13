@@ -1,228 +1,175 @@
-import { motion, useScroll, useTransform } from 'framer-motion';
 import { Link } from 'wouter';
+import { motion, useScroll, useTransform } from 'framer-motion';
+import { ArrowRight } from 'lucide-react';
 import { useRef } from 'react';
+
+const destinations = [
+  {
+    id: 1,
+    title: 'Amalfi Coast, Italy',
+    price: 'From $12,500',
+    image: '/images/amalfi.jpg',
+    rating: '5.0',
+    span: 'col-span-1 md:col-span-2 row-span-2'
+  },
+  {
+    id: 2,
+    title: 'Kyoto, Japan',
+    price: 'From $8,200',
+    image: '/images/kyoto.jpg',
+    rating: '4.9',
+    span: 'col-span-1 row-span-1'
+  },
+  {
+    id: 3,
+    title: 'Santorini, Greece',
+    price: 'From $9,400',
+    image: '/images/santorini.jpg',
+    rating: '4.9',
+    span: 'col-span-1 row-span-1'
+  }
+];
 
 export function Home() {
   const containerRef = useRef(null);
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ['start start', 'end end']
+    offset: ["start start", "end start"]
   });
 
-  // Simple parallax for hero image
-  const y = useTransform(scrollYProgress, [0, 1], ['0%', '50%']);
-  const opacity = useTransform(scrollYProgress, [0, 0.2], [1, 0]);
+  const heroY = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
+  const heroOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
 
   return (
-    <div ref={containerRef} className="bg-background text-foreground min-h-screen">
-      {/* Hero Section - Dream */}
-      <section className="relative h-[100vh] flex items-center justify-center overflow-hidden">
+    <div className="w-full" ref={containerRef}>
+      {/* Hero Section */}
+      <section className="relative h-screen w-full overflow-hidden flex items-center justify-center p-4 sm:p-8">
         <motion.div 
-          style={{ y, opacity }}
-          className="absolute inset-0 z-0"
+          className="absolute inset-4 rounded-[40px] overflow-hidden"
+          style={{ y: heroY, opacity: heroOpacity }}
         >
-          <div className="absolute inset-0 bg-black/40 z-10" />
+          <div className="absolute inset-0 bg-black/20 z-10 mix-blend-overlay" />
           <img 
-            src="/images/hero-maldives.jpg" 
-            alt="Maldives sunrise" 
-            className="w-full h-[120%] object-cover object-center transform -translate-y-[10%]"
+            src="/images/hero.jpg" 
+            alt="Luxury Resort" 
+            className="w-full h-full object-cover scale-105"
           />
         </motion.div>
 
-        <div className="relative z-10 text-center px-4 max-w-5xl mx-auto flex flex-col items-center">
-          <motion.h1 
+        <div className="relative z-20 flex flex-col items-center justify-center w-full max-w-4xl text-center">
+          <motion.div 
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1.5, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-            className="font-serif text-5xl md:text-7xl lg:text-8xl tracking-tight leading-tight mb-6 text-white"
+            transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
+            className="glass-card rounded-[40px] p-10 md:p-16 max-w-3xl mx-auto shadow-apple"
           >
-            The World, <br/><span className="italic font-light">Curated for the Few.</span>
-          </motion.h1>
-          
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 1.5, delay: 0.8, ease: "easeOut" }}
-            className="text-white/80 font-light tracking-widest uppercase text-sm mb-12 max-w-lg mx-auto"
-          >
-            An invite-only collection of extraordinary experiences, far beyond the reach of ordinary travel.
-          </motion.p>
-          
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1.5, delay: 1.2, ease: [0.16, 1, 0.3, 1] }}
-          >
-            <Link href="/book" className="group relative inline-flex items-center justify-center px-8 py-4 overflow-hidden border border-white/30 text-white hover:text-black transition-colors duration-500">
-              <span className="absolute inset-0 w-full h-full bg-white transform scale-x-0 origin-left transition-transform duration-500 ease-[0.16,1,0.3,1] group-hover:scale-x-100" />
-              <span className="relative text-sm tracking-[0.2em] uppercase">Begin Your Journey</span>
-            </Link>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Discover Section */}
-      <section className="py-32 md:py-48 px-8 md:px-16 max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 md:gap-24 items-center">
-          <div className="lg:col-span-5 order-2 lg:order-1">
-            <motion.div
-              initial={{ opacity: 0, x: -30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, margin: "-20%" }}
-              transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-            >
-              <h2 className="font-serif text-sm text-primary uppercase tracking-[0.3em] mb-6">Discover</h2>
-              <h3 className="font-serif text-4xl md:text-5xl leading-tight mb-8">
-                Where the map ends, <br/>your story begins.
-              </h3>
-              <p className="text-muted-foreground font-light text-lg leading-relaxed mb-10 max-w-md">
-                From uncharted private atolls to snow-draped alpine sanctuaries, we design journeys that transcend the traditional. No two itineraries are alike; every moment is sculpted to your exact desires by a dedicated travel curator.
-              </p>
-              <Link href="/destinations" className="text-sm uppercase tracking-widest border-b border-primary/30 pb-2 hover:border-primary transition-colors text-foreground hover:text-primary">
-                Explore Destinations
-              </Link>
-            </motion.div>
-          </div>
-          
-          <div className="lg:col-span-7 order-1 lg:order-2 relative">
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true, margin: "-20%" }}
-              transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
-              className="relative aspect-[4/5] md:aspect-square lg:aspect-[4/5] overflow-hidden"
-            >
-              <img 
-                src="/images/safari-luxury.jpg" 
-                alt="Luxury Safari" 
-                className="w-full h-full object-cover transition-transform duration-1000 hover:scale-105"
-              />
-            </motion.div>
-            <motion.div
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-20%" }}
-              transition={{ duration: 1.2, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-              className="absolute -bottom-12 -left-8 md:-left-16 w-2/3 max-w-sm hidden md:block"
-            >
-              <img 
-                src="/images/helicopter-arrival.jpg" 
-                alt="Arrival" 
-                className="w-full aspect-[3/2] object-cover shadow-2xl"
-              />
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
-      {/* Curate Section - Full Bleed */}
-      <section className="bg-ivory py-32 md:py-48 overflow-hidden">
-        <div className="max-w-7xl mx-auto px-8 md:px-16">
-          <div className="text-center mb-24">
-            <motion.h2 
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 1 }}
-              className="font-serif text-sm text-accent uppercase tracking-[0.3em] mb-6"
-            >
-              Curate
-            </motion.h2>
-            <motion.h3 
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 1, delay: 0.2 }}
-              className="font-serif text-4xl md:text-5xl lg:text-6xl max-w-3xl mx-auto leading-tight text-foreground"
-            >
-              Experiences beyond the imagination
-            </motion.h3>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {[
-              { title: "Wellness Escapes", img: "/images/wellness-spa.jpg", desc: "Rejuvenate in remote sanctuaries." },
-              { title: "Private Expeditions", img: "/images/yacht-cruise.jpg", desc: "Charter the world's finest vessels." },
-              { title: "Culinary Heights", img: "/images/dinner-sunset.jpg", desc: "Dine under stars with Michelin chefs." }
-            ].map((item, i) => (
-              <motion.div 
-                key={item.title}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-10%" }}
-                transition={{ duration: 1, delay: i * 0.2, ease: [0.16, 1, 0.3, 1] }}
-                className="group cursor-pointer"
-              >
-                <div className="relative aspect-[3/4] overflow-hidden mb-6">
-                  <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors duration-700 z-10" />
-                  <img 
-                    src={item.img} 
-                    alt={item.title}
-                    className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
-                  />
-                </div>
-                <h4 className="font-serif text-2xl mb-2 text-foreground">{item.title}</h4>
-                <p className="font-light text-foreground/60">{item.desc}</p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Experience Section */}
-      <section className="py-32 md:py-48 px-8 md:px-16 max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 1.5 }}
-            className="aspect-square relative"
-          >
-            <img src="/images/swiss-alps.jpg" alt="Swiss Alps" className="w-full h-full object-cover" />
-          </motion.div>
-          
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 1.2 }}
-          >
-            <h2 className="font-serif text-sm text-primary uppercase tracking-[0.3em] mb-6">Experience</h2>
-            <h3 className="font-serif text-4xl md:text-5xl leading-tight mb-8">
-              A private world, <br/>unlocked for you.
-            </h3>
-            <p className="text-muted-foreground font-light text-lg leading-relaxed mb-10 max-w-md">
-              Gain access to the inaccessible. From private islands entirely reserved for your family to after-hours tours of the Louvre, our connections open doors that are otherwise closed.
+            <h1 className="font-serif text-5xl md:text-7xl lg:text-8xl text-foreground leading-none mb-6">
+              The World,<br />Perfectly Curated.
+            </h1>
+            <p className="text-lg md:text-xl text-foreground/80 font-sans mb-10 max-w-xl mx-auto">
+              Private journeys, iconic destinations, extraordinary experiences.
             </p>
-            <Link href="/memberships" className="group inline-flex items-center space-x-4">
-              <span className="text-sm uppercase tracking-widest text-foreground group-hover:text-primary transition-colors">View Member Privileges</span>
-              <span className="w-12 h-[1px] bg-foreground group-hover:bg-primary transition-colors transform group-hover:translate-x-2 duration-300" />
-            </Link>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+              <Link href="/book">
+                <span className="inline-flex items-center justify-center px-8 py-4 text-base font-medium text-white bg-foreground rounded-full hover:bg-foreground/90 btn-press w-full sm:w-auto cursor-pointer">
+                  Begin Your Journey
+                </span>
+              </Link>
+              <Link href="/destinations">
+                <span className="inline-flex items-center justify-center px-8 py-4 text-base font-medium text-foreground bg-white/80 backdrop-blur-md rounded-full hover:bg-white btn-press w-full sm:w-auto shadow-apple-sm cursor-pointer">
+                  Explore Collection
+                </span>
+              </Link>
+            </div>
           </motion.div>
         </div>
       </section>
 
-      {/* Remember Section */}
-      <section className="py-32 md:py-48 px-8 md:px-16 max-w-7xl mx-auto border-t border-white/5 text-center">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
+      {/* Philosophy Section */}
+      <section className="py-32 px-6 sm:px-12 max-w-7xl mx-auto">
+        <motion.div 
+          initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 1.2 }}
-          className="max-w-3xl mx-auto"
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          className="max-w-4xl mx-auto text-center"
         >
-          <h2 className="font-serif text-sm text-primary uppercase tracking-[0.3em] mb-6">Remember</h2>
-          <h3 className="font-serif text-4xl md:text-5xl leading-tight mb-8">
-            Moments that outlive <br/><span className="italic">the journey.</span>
-          </h3>
-          <p className="text-muted-foreground font-light text-lg leading-relaxed mb-10">
-            The finest souvenirs are not objects, but stories. Our journal captures the fleeting, unforgettable moments of our members' travels across the globe.
+          <h2 className="font-serif text-4xl md:text-6xl text-foreground mb-8">
+            Redefining the Art of Travel
+          </h2>
+          <p className="text-xl text-muted-foreground leading-relaxed">
+            We don't sell vacations. We design life-defining moments. Our access is unprecedented, our taste impeccable, and our execution flawless. Welcome to a world where every detail is considered, and nothing is left to chance.
           </p>
-          <Link href="/gallery" className="group inline-flex items-center space-x-4">
-            <span className="text-sm uppercase tracking-widest text-foreground group-hover:text-primary transition-colors">Read the Journal</span>
-            <span className="w-12 h-[1px] bg-foreground group-hover:bg-primary transition-colors transform group-hover:translate-x-2 duration-300" />
+        </motion.div>
+      </section>
+
+      {/* Featured Destinations (iOS Widget Style) */}
+      <section className="py-20 px-4 sm:px-8 max-w-[1400px] mx-auto">
+        <div className="flex justify-between items-end mb-12 px-2">
+          <h2 className="font-serif text-4xl md:text-5xl text-foreground">Featured Collection</h2>
+          <Link href="/destinations">
+            <span className="hidden md:inline-flex items-center gap-2 text-primary font-medium hover:text-primary/80 transition-colors cursor-pointer group">
+              View All <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
+            </span>
           </Link>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 auto-rows-[300px]">
+          {destinations.map((dest, i) => (
+            <motion.div
+              key={dest.id}
+              className={`relative rounded-[36px] overflow-hidden group cursor-pointer shadow-apple ${dest.span}`}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }}
+            >
+              <img 
+                src={dest.image} 
+                alt={dest.title}
+                className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
+              
+              <div className="absolute bottom-0 left-0 right-0 p-8 flex flex-col justify-end">
+                <div className="glass-card rounded-2xl p-6 flex justify-between items-end transform translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-400 ease-out">
+                  <div>
+                    <h3 className="font-serif text-2xl text-foreground mb-1">{dest.title}</h3>
+                    <p className="text-muted-foreground text-sm font-medium">{dest.price}</p>
+                  </div>
+                  <div className="w-10 h-10 rounded-full bg-foreground flex items-center justify-center text-white">
+                    <ArrowRight size={20} />
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </section>
+      
+      {/* Experience Teaser */}
+      <section className="py-32 px-4 sm:px-8 max-w-[1400px] mx-auto">
+        <motion.div 
+          className="relative rounded-[40px] overflow-hidden bg-foreground text-white p-12 md:p-24 flex flex-col items-center text-center shadow-apple"
+          initial={{ opacity: 0, scale: 0.95 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+        >
+          <div className="absolute inset-0 opacity-40">
+            <img src="/images/private-island.jpg" alt="Texture" className="w-full h-full object-cover" />
+          </div>
+          <div className="relative z-10 max-w-3xl">
+            <h2 className="font-serif text-4xl md:text-6xl mb-6 text-white">More Than a Destination.</h2>
+            <p className="text-lg md:text-xl text-white/80 mb-10">
+              We design comprehensive experiences tailored to your personal taste, from private island buyouts to exclusive cultural immersions.
+            </p>
+            <Link href="/experiences">
+              <span className="inline-flex items-center justify-center px-8 py-4 text-base font-medium text-foreground bg-white rounded-full hover:bg-white/90 btn-press cursor-pointer">
+                Discover Experiences
+              </span>
+            </Link>
+          </div>
         </motion.div>
       </section>
     </div>

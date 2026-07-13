@@ -42,51 +42,56 @@
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) + 4px);
+  --radius-xl: calc(var(--radius) + 12px);
+  --radius-2xl: calc(var(--radius) + 24px);
+  --radius-3xl: calc(var(--radius) + 32px);
 }
 
 :root {
-  /* Deep charcoal + warm ivory + sparing gold */
+  /* Apple × Luxury Travel Theme */
   
-  /* Background: Deep charcoal */
-  --background: 0 0% 8%;
-  --foreground: 40 33% 96%; /* Warm ivory text */
+  /* Background: #F5F5F7 */
+  --background: 240 14% 96%;
+  /* Foreground: Graphite #1D1D1F */
+  --foreground: 240 4% 12%;
 
-  --card: 0 0% 10%;
-  --card-foreground: 40 33% 96%;
-  --card-border: 0 0% 15%;
+  /* Pure White #FFFFFF */
+  --card: 0 0% 100%;
+  --card-foreground: 240 4% 12%;
+  /* Soft Gray #E8E8ED for borders */
+  --card-border: 240 12% 92%;
 
-  --popover: 0 0% 10%;
-  --popover-foreground: 40 33% 96%;
-  --popover-border: 0 0% 15%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 240 4% 12%;
+  --popover-border: 240 12% 92%;
 
-  /* Primary: Gold */
-  --primary: 43 60% 55%; 
-  --primary-foreground: 0 0% 8%;
+  /* Luxury Gold #C7A45D */
+  --primary: 40 48% 57%; 
+  --primary-foreground: 0 0% 100%;
 
-  /* Secondary: Warm Ivory (used for light sections) */
-  --secondary: 40 33% 96%;
-  --secondary-foreground: 0 0% 8%;
+  /* Secondary: Soft Gray #E8E8ED */
+  --secondary: 240 12% 92%;
+  --secondary-foreground: 240 4% 12%;
 
-  /* Muted: Lighter charcoal */
-  --muted: 0 0% 15%;
-  --muted-foreground: 40 10% 70%;
+  /* Muted: Soft Gray */
+  --muted: 240 12% 92%;
+  --muted-foreground: 240 4% 46%;
 
-  /* Accent: Muted Gold/Bronze */
-  --accent: 43 40% 40%;
-  --accent-foreground: 40 33% 96%;
+  /* Accent: Warm Beige #F7F3EE */
+  --accent: 33 38% 95%;
+  --accent-foreground: 240 4% 12%;
 
-  --destructive: 0 60% 45%;
-  --destructive-foreground: 40 33% 96%;
+  --destructive: 0 84% 60%;
+  --destructive-foreground: 0 0% 100%;
 
-  --border: 0 0% 20%;
-  --input: 0 0% 20%;
-  --ring: 43 60% 55%;
+  --border: 240 12% 92%;
+  --input: 240 12% 92%;
+  --ring: 40 48% 57%;
 
-  --app-font-sans: 'DM Sans', sans-serif;
-  --app-font-serif: 'Cormorant Garamond', serif;
+  --app-font-sans: 'DM Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --app-font-serif: 'Cormorant Garamond', Georgia, serif;
   
-  --radius: 0rem;
+  --radius: 1rem;
 }
 
 @layer base {
@@ -94,10 +99,10 @@
     @apply border-border;
   }
   body {
-    @apply font-sans antialiased bg-background text-foreground overflow-x-hidden;
+    @apply font-sans antialiased bg-background text-foreground overflow-x-hidden selection:bg-primary/20 selection:text-primary;
   }
   h1, h2, h3, h4, h5, h6 {
-    @apply font-serif tracking-tight font-normal;
+    @apply font-serif tracking-tight font-normal text-foreground;
   }
 }
 
@@ -122,22 +127,64 @@ html.lenis, html.lenis body {
   pointer-events: none;
 }
 
-/* Custom cinematic utilities */
-.clip-text-gold {
-  background: linear-gradient(135deg, hsl(43 80% 70%), hsl(43 60% 45%));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+/* Glassmorphism Utilities */
+.glass {
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.4);
 }
 
-.bg-ivory {
-  background-color: hsl(40 33% 96%);
-  color: hsl(0 0% 8%);
-}
-.bg-ivory * {
-  border-color: hsl(0 0% 85%);
+.glass-dark {
+  background: rgba(29, 29, 31, 0.7);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.bg-charcoal {
-  background-color: hsl(0 0% 8%);
-  color: hsl(40 33% 96%);
+.glass-card {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(40px);
+  -webkit-backdrop-filter: blur(40px);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.02);
+}
+
+.glass-pill {
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(32px);
+  -webkit-backdrop-filter: blur(32px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04);
+}
+
+/* Luxury Soft Shadows */
+.shadow-apple {
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.04), 0 2px 10px rgba(0, 0, 0, 0.02);
+}
+.shadow-apple-hover {
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08), 0 4px 16px rgba(0, 0, 0, 0.04);
+}
+.shadow-apple-sm {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.03), 0 1px 4px rgba(0, 0, 0, 0.02);
+}
+
+/* Animations & Microinteractions */
+.smooth-hover {
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.btn-press {
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.btn-press:active {
+  transform: scale(0.96);
+}
+
+/* Clean UI hiding scrollbar for specific containers */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }

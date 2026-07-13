@@ -1,73 +1,131 @@
 import { motion } from 'framer-motion';
-import { useState } from 'react';
+import { Link } from 'wouter';
+import { ArrowRight, MapPin, Star } from 'lucide-react';
 
 const destinations = [
-  { id: 'maldives', title: 'Maldives', subtitle: 'Private Atolls', img: '/images/hero-maldives.jpg' },
-  { id: 'swiss-alps', title: 'Swiss Alps', subtitle: 'Alpine Chalets', img: '/images/swiss-alps.jpg' },
-  { id: 'safari', title: 'Serengeti', subtitle: 'Luxury Safari', img: '/images/safari-luxury.jpg' },
-  { id: 'santorini', title: 'Santorini', subtitle: 'Cliffside Villas', img: '/images/santorini-sunset.jpg' },
-  { id: 'private-island', title: 'Bora Bora', subtitle: 'Exclusive Islands', img: '/images/private-island.jpg' }
+  {
+    id: 1,
+    title: 'Amalfi Coast, Italy',
+    region: 'Europe',
+    price: 'From $12,500',
+    image: '/images/amalfi.jpg',
+    rating: '5.0',
+    tags: ['Villa', 'Culinary', 'Coastal']
+  },
+  {
+    id: 2,
+    title: 'Kyoto, Japan',
+    region: 'Asia',
+    price: 'From $8,200',
+    image: '/images/kyoto.jpg',
+    rating: '4.9',
+    tags: ['Cultural', 'Zen', 'Heritage']
+  },
+  {
+    id: 3,
+    title: 'Santorini, Greece',
+    region: 'Europe',
+    price: 'From $9,400',
+    image: '/images/santorini.jpg',
+    rating: '4.9',
+    tags: ['Romance', 'Sailing', 'Views']
+  },
+  {
+    id: 4,
+    title: 'Serengeti, Tanzania',
+    region: 'Africa',
+    price: 'From $15,000',
+    image: '/images/safari.jpg',
+    rating: '5.0',
+    tags: ['Safari', 'Adventure', 'Nature']
+  },
+  {
+    id: 5,
+    title: 'Maldives',
+    region: 'Indian Ocean',
+    price: 'From $18,500',
+    image: '/images/maldives.jpg',
+    rating: '4.9',
+    tags: ['Overwater', 'Diving', 'Remote']
+  },
+  {
+    id: 6,
+    title: 'Swiss Alps',
+    region: 'Europe',
+    price: 'From $11,200',
+    image: '/images/alps.jpg',
+    rating: '4.8',
+    tags: ['Ski', 'Chalet', 'Alpine']
+  }
 ];
 
 export function Destinations() {
-  const [hoveredDest, setHoveredDest] = useState(destinations[0].img);
-
   return (
-    <div className="bg-background min-h-screen pt-32 pb-24 text-foreground relative">
-      {/* Fixed Background Image that changes on hover */}
-      <div className="fixed inset-0 z-0 opacity-20 pointer-events-none transition-opacity duration-1000">
-        <motion.img 
-          key={hoveredDest}
-          src={hoveredDest}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1 }}
-          className="w-full h-full object-cover"
-        />
-        <div className="absolute inset-0 bg-background/80" />
-      </div>
+    <div className="pt-32 pb-24 px-4 sm:px-8 max-w-[1400px] mx-auto min-h-screen">
+      <motion.div 
+        className="max-w-4xl mb-20"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+      >
+        <h1 className="font-serif text-5xl md:text-7xl text-foreground mb-6">
+          The Collection
+        </h1>
+        <p className="text-xl text-muted-foreground leading-relaxed max-w-2xl">
+          An impeccably curated selection of the world's most extraordinary destinations, available exclusively to our members.
+        </p>
+      </motion.div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-8 md:px-16">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-          className="mb-24"
-        >
-          <h1 className="font-serif text-5xl md:text-7xl lg:text-8xl mb-6">
-            Destinations <br/><span className="italic text-primary">Beyond Ordinary.</span>
-          </h1>
-          <p className="font-light text-muted-foreground text-lg max-w-xl">
-            A curated selection of the world's most remote, breathtaking, and exclusive locations, reserved for the discerning few.
-          </p>
-        </motion.div>
-
-        <div className="flex flex-col space-y-8 md:space-y-16">
-          {destinations.map((dest, i) => (
-            <motion.div
-              key={dest.id}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-10%" }}
-              transition={{ duration: 1, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }}
-              className="group cursor-pointer border-b border-white/5 pb-8 md:pb-16 flex flex-col md:flex-row md:items-end justify-between"
-              onMouseEnter={() => setHoveredDest(dest.img)}
-            >
-              <div>
-                <span className="font-sans text-xs uppercase tracking-[0.3em] text-primary mb-4 block">
-                  {String(i + 1).padStart(2, '0')} — {dest.subtitle}
-                </span>
-                <h2 className="font-serif text-4xl md:text-6xl text-foreground/50 group-hover:text-foreground transition-colors duration-500">
-                  {dest.title}
-                </h2>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {destinations.map((dest, i) => (
+          <motion.div
+            key={dest.id}
+            className="group relative rounded-[36px] overflow-hidden bg-card border border-border shadow-apple smooth-hover hover:shadow-apple-hover"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }}
+          >
+            <div className="relative aspect-[4/5] overflow-hidden">
+              <img 
+                src={dest.image} 
+                alt={dest.title}
+                className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+              />
+              <div className="absolute top-6 left-6 glass-pill px-4 py-1.5 rounded-full flex items-center gap-1">
+                <Star size={14} className="text-primary fill-primary" />
+                <span className="text-sm font-medium text-foreground">{dest.rating}</span>
               </div>
-              
-              <div className="mt-8 md:mt-0 overflow-hidden w-full md:w-1/3 aspect-[3/2] md:aspect-[4/3] md:opacity-0 md:group-hover:opacity-100 transition-all duration-700 md:translate-y-8 md:group-hover:translate-y-0">
-                <img src={dest.img} alt={dest.title} className="w-full h-full object-cover scale-110 group-hover:scale-100 transition-transform duration-1000" />
+            </div>
+            
+            <div className="absolute bottom-0 left-0 right-0 p-4">
+              <div className="glass-card rounded-[28px] p-6 flex flex-col gap-4">
+                <div>
+                  <div className="flex items-center gap-1 text-muted-foreground mb-2">
+                    <MapPin size={14} />
+                    <span className="text-xs font-medium uppercase tracking-wider">{dest.region}</span>
+                  </div>
+                  <h3 className="font-serif text-2xl text-foreground mb-1">{dest.title}</h3>
+                  <p className="text-muted-foreground text-sm font-medium">{dest.price}</p>
+                </div>
+                
+                <div className="flex items-center justify-between mt-2 pt-4 border-t border-border/50">
+                  <div className="flex gap-2">
+                    {dest.tags.slice(0, 2).map(tag => (
+                      <span key={tag} className="text-xs px-3 py-1 bg-secondary text-secondary-foreground rounded-full">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                  <Link href={`/book?destination=${encodeURIComponent(dest.title)}`}>
+                    <button className="w-10 h-10 rounded-full bg-foreground flex items-center justify-center text-white hover:bg-foreground/90 transition-colors btn-press">
+                      <ArrowRight size={18} />
+                    </button>
+                  </Link>
+                </div>
               </div>
-            </motion.div>
-          ))}
-        </div>
+            </div>
+          </motion.div>
+        ))}
       </div>
     </div>
   );

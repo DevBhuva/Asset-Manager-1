@@ -1,89 +1,96 @@
 import { motion } from 'framer-motion';
-import { Link } from 'wouter';
 
 const experiences = [
   {
-    title: 'Private Aviation',
-    desc: 'Bypass the terminals. We arrange seamless point-to-point travel via private jet and helicopter, ensuring your journey begins the moment you leave your door.',
-    img: '/images/helicopter-arrival.jpg',
-    layout: 'left'
+    id: 1,
+    title: 'The Private Island Buyout',
+    subtitle: 'Absolute Isolation, Absolute Luxury',
+    description: 'Commandeer an entire pristine island in the Maldives or Caribbean for your exclusive use. From bespoke menus crafted by Michelin-starred chefs to a dedicated staff anticipating every need, experience the ultimate luxury of total privacy.',
+    image: '/images/private-island.jpg',
+    align: 'left'
   },
   {
-    title: 'Yacht Charters',
-    desc: 'Commandeer the seas. Access an exclusive fleet of superyachts with full crew, private chefs, and itineraries that chart untouched waters.',
-    img: '/images/yacht-cruise.jpg',
-    layout: 'right'
+    id: 2,
+    title: 'The Silent Safari',
+    subtitle: 'Unseen Wilderness',
+    description: 'Traverse private concessions in East Africa via electric, silent vehicles. No engine noise, no crowds—just you, expert trackers, and the raw, unedited theater of the wild, returning to a fully serviced mobile camp under the stars.',
+    image: '/images/safari.jpg',
+    align: 'right'
   },
   {
-    title: 'Wellness Sanctuaries',
-    desc: 'Retreat from the world. Immerse yourself in restorative environments designed to heal mind and body, surrounded by breathtaking natural beauty.',
-    img: '/images/wellness-spa.jpg',
-    layout: 'left'
-  },
-  {
-    title: 'Culinary Journeys',
-    desc: 'Taste the impossible. Private dinners on secluded beaches, exclusive access to closed-door vineyards, and meals prepared by Michelin-starred chefs in your villa.',
-    img: '/images/dinner-sunset.jpg',
-    layout: 'right'
+    id: 3,
+    title: 'Alpine Zenith',
+    subtitle: 'Heli-Skiing & Chalet Life',
+    description: 'Access untouched powder in the Swiss Alps via private helicopter. After carving pristine lines all day, return to an architectural masterpiece of a chalet where a roaring fire, sommelier-selected wines, and deep tissue massages await.',
+    image: '/images/alps.jpg',
+    align: 'left'
   }
 ];
 
 export function Experiences() {
   return (
-    <div className="bg-background min-h-screen pt-32 pb-24 text-foreground">
-      <div className="max-w-7xl mx-auto px-8 md:px-16">
+    <div className="pt-32 pb-24 min-h-screen">
+      <div className="px-4 sm:px-8 max-w-[1400px] mx-auto mb-20 text-center">
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-          className="mb-24 text-center max-w-4xl mx-auto"
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
         >
-          <span className="font-sans text-xs uppercase tracking-[0.3em] text-primary mb-6 block">
-            Signature Experiences
-          </span>
-          <h1 className="font-serif text-5xl md:text-7xl mb-8 leading-tight">
-            The art of <br/><span className="italic text-muted-foreground">living fully.</span>
+          <h1 className="font-serif text-5xl md:text-7xl text-foreground mb-6">
+            Immersive Stories
           </h1>
-          <p className="font-light text-muted-foreground text-lg leading-relaxed max-w-2xl mx-auto">
-            We don't sell trips; we curate moments that take your breath away. Our signature experiences are entirely bespoke, designed around your distinct rhythm and desires.
+          <p className="text-xl text-muted-foreground leading-relaxed max-w-2xl mx-auto">
+            We don't build itineraries. We design narratives where you are the protagonist.
           </p>
         </motion.div>
+      </div>
 
-        <div className="space-y-32 md:space-y-48 pb-32">
-          {experiences.map((exp, i) => (
-            <div key={exp.title} className={`flex flex-col ${exp.layout === 'left' ? 'md:flex-row' : 'md:flex-row-reverse'} items-center gap-16 md:gap-24`}>
-              <motion.div
+      <div className="flex flex-col gap-32">
+        {experiences.map((exp, i) => (
+          <section key={exp.id} className="relative px-4 sm:px-8 max-w-[1600px] mx-auto w-full">
+            <div className={`flex flex-col lg:flex-row gap-12 items-center ${exp.align === 'right' ? 'lg:flex-row-reverse' : ''}`}>
+              
+              {/* Image Side */}
+              <motion.div 
+                className="w-full lg:w-3/5"
                 initial={{ opacity: 0, scale: 0.95 }}
                 whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true, margin: "-10%" }}
-                transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
-                className="w-full md:w-1/2 aspect-[4/5] relative overflow-hidden"
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
               >
-                <img src={exp.img} alt={exp.title} className="w-full h-full object-cover" />
+                <div className="relative aspect-[4/3] rounded-[40px] overflow-hidden shadow-apple">
+                  <img 
+                    src={exp.image} 
+                    alt={exp.title}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
               </motion.div>
 
-              <motion.div
-                initial={{ opacity: 0, x: exp.layout === 'left' ? 30 : -30 }}
+              {/* Content Side */}
+              <motion.div 
+                className="w-full lg:w-2/5 px-4 lg:px-12"
+                initial={{ opacity: 0, x: exp.align === 'left' ? 40 : -40 }}
                 whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true, margin: "-10%" }}
-                transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-                className="w-full md:w-1/2"
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
               >
-                <span className="font-sans text-xs uppercase tracking-[0.3em] text-primary mb-6 block">
-                  {String(i + 1).padStart(2, '0')}
+                <span className="text-primary text-sm font-bold tracking-widest uppercase mb-4 block">
+                  {exp.subtitle}
                 </span>
-                <h2 className="font-serif text-4xl md:text-5xl mb-6">{exp.title}</h2>
-                <p className="font-light text-muted-foreground text-lg leading-relaxed mb-10 max-w-md">
-                  {exp.desc}
+                <h2 className="font-serif text-4xl md:text-5xl text-foreground mb-6 leading-tight">
+                  {exp.title}
+                </h2>
+                <p className="text-lg text-muted-foreground leading-relaxed mb-8">
+                  {exp.description}
                 </p>
-                <Link href="/book" className="group inline-flex items-center space-x-4">
-                  <span className="text-sm uppercase tracking-widest text-foreground group-hover:text-primary transition-colors">Inquire</span>
-                  <span className="w-12 h-[1px] bg-foreground group-hover:bg-primary transition-colors transform group-hover:translate-x-2 duration-300" />
-                </Link>
+                <button className="px-8 py-3 rounded-full border border-foreground text-foreground font-medium hover:bg-foreground hover:text-white transition-colors btn-press">
+                  Request Detail
+                </button>
               </motion.div>
             </div>
-          ))}
-        </div>
+          </section>
+        ))}
       </div>
     </div>
   );

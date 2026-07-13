@@ -1,62 +1,87 @@
 import { motion } from 'framer-motion';
+import { Star } from 'lucide-react';
 
 const testimonials = [
   {
-    quote: "I’ve stayed in the finest suites in the world, but the private island Exotica secured for our family was something beyond luxury. It was complete, unbothered peace.",
-    author: "J. Mercer",
-    role: "Member since 2019"
+    name: 'Eleanor V.',
+    role: 'Centurion Member',
+    text: 'They don\'t just book trips; they orchestrate flawless experiences. Our private island stay in the Maldives was engineered perfectly. Every detail, from the exact vintage of wine to the thread count, was exactly as requested.',
+    rating: 5,
+    avatar: 'https://i.pravatar.cc/150?u=a042581f4e29026704d'
   },
   {
-    quote: "When our flight was grounded due to weather, my Curator had a helicopter waiting before I even knew there was a problem. That is what true service looks like.",
-    author: "E. Kensington",
-    role: "Member since 2021"
+    name: 'James C.',
+    role: 'Signature Member',
+    text: 'I\'ve worked with high-end concierges for a decade, but Exotica is different. Their access is unparalleled. Getting us a private dinner at the Colosseum after hours was something I thought was impossible.',
+    rating: 5,
+    avatar: 'https://i.pravatar.cc/150?u=a042581f4e29026704e'
   },
   {
-    quote: "We asked for a private dinner in the desert. We didn’t expect a Michelin-starred chef, a string quartet, and a telescope perfectly aligned with Saturn. Speechless.",
-    author: "T. & M. Vance",
-    role: "Members since 2018"
+    name: 'Sophia L.',
+    role: 'Centurion Member',
+    text: 'When our flight was cancelled due to weather in Geneva, before I even knew about it, Exotica had already secured a private jet alternative and adjusted our entire itinerary. Calm, efficient, luxurious.',
+    rating: 5,
+    avatar: 'https://i.pravatar.cc/150?u=a042581f4e29026704f'
+  },
+  {
+    name: 'Michael R.',
+    role: 'Signature Member',
+    text: 'The absolute pinnacle of luxury travel. The design of our Japanese itinerary was so thoughtful, balancing high-end luxury with genuine, deep cultural immersion that money usually can\'t buy.',
+    rating: 5,
+    avatar: 'https://i.pravatar.cc/150?u=a042581f4e29026704g'
   }
 ];
 
 export function Testimonials() {
   return (
-    <div className="bg-background min-h-screen pt-32 pb-24 text-foreground">
-      <div className="max-w-7xl mx-auto px-8 md:px-16">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-          className="mb-24 text-center max-w-3xl mx-auto"
-        >
-          <span className="font-sans text-xs uppercase tracking-[0.3em] text-primary mb-6 block">
-            Stories from our Travelers
-          </span>
-          <h1 className="font-serif text-5xl md:text-7xl mb-8 leading-tight">
-            Words from the <br/><span className="italic text-muted-foreground">inner circle.</span>
-          </h1>
-        </motion.div>
+    <div className="pt-32 pb-24 px-4 sm:px-8 max-w-[1400px] mx-auto min-h-screen">
+      <motion.div 
+        className="text-center max-w-3xl mx-auto mb-20"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+      >
+        <h1 className="font-serif text-5xl md:text-7xl text-foreground mb-6">
+          Member Stories
+        </h1>
+        <p className="text-xl text-muted-foreground leading-relaxed">
+          The ultimate measure of our success is the quiet satisfaction of the world's most demanding clientele.
+        </p>
+      </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-16 md:gap-12">
-          {testimonials.map((t, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-10%" }}
-              transition={{ duration: 1, delay: i * 0.2, ease: [0.16, 1, 0.3, 1] }}
-              className="flex flex-col h-full"
-            >
-              <div className="text-primary text-4xl font-serif mb-6">"</div>
-              <p className="font-light text-xl leading-relaxed mb-8 flex-grow">
-                {t.quote}
-              </p>
-              <div className="border-t border-white/10 pt-6">
-                <p className="font-sans text-sm uppercase tracking-widest text-foreground">{t.author}</p>
-                <p className="font-light text-xs text-muted-foreground mt-2">{t.role}</p>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 max-w-5xl mx-auto">
+        {testimonials.map((test, i) => (
+          <motion.div
+            key={i}
+            className="glass-card rounded-[36px] p-8 md:p-10 shadow-apple"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }}
+          >
+            <div className="flex gap-1 text-primary mb-6">
+              {[...Array(test.rating)].map((_, j) => (
+                <Star key={j} size={16} className="fill-primary" />
+              ))}
+            </div>
+            
+            <p className="text-lg text-foreground/90 leading-relaxed mb-8">
+              "{test.text}"
+            </p>
+            
+            <div className="flex items-center gap-4 mt-auto">
+              <img 
+                src={test.avatar} 
+                alt={test.name}
+                className="w-12 h-12 rounded-full border border-border"
+              />
+              <div>
+                <div className="font-medium text-foreground">{test.name}</div>
+                <div className="text-sm text-muted-foreground">{test.role}</div>
               </div>
-            </motion.div>
-          ))}
-        </div>
+            </div>
+          </motion.div>
+        ))}
       </div>
     </div>
   );

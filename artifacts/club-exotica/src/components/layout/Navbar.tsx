@@ -1,109 +1,107 @@
-import { useEffect, useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'wouter';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
-import { cn } from '@/lib/utils';
+
+const navLinks = [
+  { href: '/destinations', label: 'Destinations' },
+  { href: '/experiences', label: 'Experiences' },
+  { href: '/memberships', label: 'Memberships' },
+  { href: '/gallery', label: 'Gallery' },
+  { href: '/testimonials', label: 'Stories' },
+];
 
 export function Navbar() {
+  const [location] = useLocation();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [location] = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
     };
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const navLinks = [
-    { name: 'Destinations', path: '/destinations' },
-    { name: 'Experiences', path: '/experiences' },
-    { name: 'Privileges', path: '/memberships' },
-    { name: 'Journal', path: '/gallery' },
-  ];
-
-  const isLight = location === '/about' || location === '/terms'; // Example if we need dark text on some pages initially, but mostly we are dark background
-
   return (
     <>
-      <motion.nav
-        initial={{ y: -100 }}
-        animate={{ y: 0 }}
-        transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-        className={cn(
-          'fixed top-0 left-0 right-0 z-50 transition-colors duration-500',
-          isScrolled ? 'bg-background/90 backdrop-blur-md border-b border-white/5' : 'bg-transparent',
-          'py-6 px-8 md:px-16'
-        )}
+      <motion.header
+        className={`fixed top-0 left-0 right-0 z-50 flex justify-center pt-6 px-4 sm:px-6 transition-all duration-500 ease-out`}
+        initial={{ y: -100, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
       >
-        <div className="max-w-7xl mx-auto flex items-center justify-between">
-          <Link href="/" className="group flex items-center z-50">
-            <span className="font-serif text-2xl tracking-widest uppercase text-foreground">
-              Exotica
-            </span>
+        <div 
+          className={`flex items-center justify-between px-6 py-3 w-full max-w-5xl rounded-full transition-all duration-500 ${
+            isScrolled ? 'glass-pill' : 'bg-transparent'
+          }`}
+        >
+          {/* Logo */}
+          <Link href="/" className="flex-shrink-0 z-50">
+            <span className="font-serif text-2xl tracking-wide text-foreground">Exotica</span>
           </Link>
 
           {/* Desktop Nav */}
-          <div className="hidden md:flex items-center space-x-12">
+          <nav className="hidden md:flex items-center gap-8">
             {navLinks.map((link) => (
-              <Link
-                key={link.name}
-                href={link.path}
-                className="text-sm uppercase tracking-widest text-foreground/80 hover:text-primary transition-colors duration-300"
-              >
-                {link.name}
+              <Link key={link.href} href={link.href}>
+                <span className={`text-sm font-medium transition-colors hover:text-primary ${
+                  location === link.href ? 'text-primary' : 'text-foreground/80'
+                }`}>
+                  {link.label}
+                </span>
               </Link>
             ))}
-          </div>
+          </nav>
 
-          <div className="hidden md:flex items-center z-50">
-            <Link
-              href="/book"
-              className="text-sm uppercase tracking-widest border border-primary/50 text-primary px-6 py-3 hover:bg-primary hover:text-primary-foreground transition-all duration-300"
-            >
-              Begin Journey
+          {/* Desktop CTA */}
+          <div className="hidden md:block flex-shrink-0">
+            <Link href="/book">
+              <span className="inline-flex items-center justify-center px-6 py-2.5 text-sm font-medium text-white bg-foreground rounded-full hover:bg-foreground/90 btn-press">
+                Apply for Membership
+              </span>
             </Link>
           </div>
 
           {/* Mobile Menu Toggle */}
-          <button
-            className="md:hidden z-50 text-foreground"
+          <button 
+            className="md:hidden z-50 p-2 -mr-2 text-foreground"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           >
             {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
         </div>
-      </motion.nav>
+      </motion.header>
 
-      {/* Mobile Menu */}
+      {/* Mobile Menu Overlay */}
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
-            initial={{ opacity: 0, y: '-100%' }}
+            initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: '-100%' }}
-            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-            className="fixed inset-0 z-40 bg-background flex flex-col items-center justify-center space-y-8"
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+            className="fixed inset-0 z-40 glass-card flex flex-col pt-32 px-8 pb-8 md:hidden"
           >
-            {navLinks.map((link) => (
-              <Link
-                key={link.name}
-                href={link.path}
-                onClick={() => setIsMobileMenuOpen(false)}
-                className="font-serif text-3xl text-foreground hover:text-primary transition-colors"
-              >
-                {link.name}
-              </Link>
-            ))}
-            <Link
-              href="/book"
-              onClick={() => setIsMobileMenuOpen(false)}
-              className="font-serif text-3xl text-primary mt-8"
-            >
-              Begin Journey
-            </Link>
+            <nav className="flex flex-col gap-6 text-center">
+              {navLinks.map((link) => (
+                <Link key={link.href} href={link.href} onClick={() => setIsMobileMenuOpen(false)}>
+                  <span className={`text-2xl font-serif transition-colors ${
+                    location === link.href ? 'text-primary' : 'text-foreground'
+                  }`}>
+                    {link.label}
+                  </span>
+                </Link>
+              ))}
+              <div className="mt-8">
+                <Link href="/book" onClick={() => setIsMobileMenuOpen(false)}>
+                  <span className="inline-flex items-center justify-center w-full px-6 py-4 text-lg font-medium text-white bg-foreground rounded-full">
+                    Apply for Membership
+                  </span>
+                </Link>
+              </div>
+            </nav>
           </motion.div>
         )}
       </AnimatePresence>
