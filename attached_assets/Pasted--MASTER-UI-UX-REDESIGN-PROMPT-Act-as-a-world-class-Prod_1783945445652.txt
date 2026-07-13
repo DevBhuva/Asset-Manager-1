@@ -1,0 +1,582 @@
+# MASTER UI/UX REDESIGN PROMPT
+
+Act as a world-class Product Designer, Creative Director, UX Researcher, Brand Strategist, Motion Designer, and Senior Frontend Engineer with 20+ years of experience designing award-winning luxury websites.
+
+Your task is to completely redesign the website for **Club Exotica**, transforming it from a conventional travel website into a premium luxury travel brand that immediately builds trust, exclusivity, elegance, and aspiration within the first 3 seconds.
+
+This should not resemble a generic WordPress or template-based travel website. It must compete visually with brands like:
+
+* Aman Resorts
+* Four Seasons
+* Airbnb Luxe
+* Ritz-Carlton
+* Apple
+* Tesla
+* Bentley
+* Rolls-Royce
+* Six Senses
+* Marriott Luxury Collection
+* One&Only Resorts
+
+## Primary Goal
+
+Create a website that makes users instantly think:
+
+> "This feels premium. I trust this brand. I want to travel with them."
+
+The design should evoke luxury, exclusivity, calmness, sophistication, and emotional desire—not clutter, discounts, or generic tourism.
+
+---
+
+# Brand Personality
+
+Elegant
+
+Minimal
+
+Luxury
+
+Premium
+
+Modern
+
+Timeless
+
+High-end
+
+Exclusive
+
+Trustworthy
+
+Emotional
+
+Aspirational
+
+---
+
+# Design Principles
+
+Use extreme visual hierarchy.
+
+Every section must breathe with generous whitespace.
+
+Avoid visual clutter.
+
+Every pixel should feel intentional.
+
+The experience should feel cinematic rather than informational.
+
+Focus on storytelling instead of simply presenting content.
+
+Follow Apple's philosophy:
+
+Less but better.
+
+---
+
+# Color Palette
+
+Primary Background
+
+#0E0E0E
+
+Secondary Background
+
+#151515
+
+Luxury Gold
+
+#C7A45D
+
+Warm White
+
+#FAFAF8
+
+Light Gray
+
+#ECECEC
+
+Accent Beige
+
+#F6F2EB
+
+Use gradients sparingly.
+
+Never overuse colors.
+
+Luxury comes from restraint.
+
+---
+
+# Typography
+
+Headings
+
+Playfair Display
+
+Cormorant Garamond
+
+Body
+
+Inter
+
+Poppins
+
+General Rules
+
+Huge hero headings
+
+Elegant serif headings
+
+Modern sans-serif body
+
+Comfortable line spacing
+
+Large font sizes
+
+Perfect typography hierarchy
+
+---
+
+# Hero Section
+
+Create a breathtaking full-screen cinematic hero.
+
+Background should use either:
+
+Luxury travel drone video
+
+OR
+
+Ultra-high-quality resort photography.
+
+Overlay should be subtle.
+
+Hero copy:
+
+Luxury Experiences Crafted Around You
+
+Discover curated holidays, exclusive resorts, premium memberships, and unforgettable journeys across the globe.
+
+Primary CTA
+
+Explore Destinations
+
+Secondary CTA
+
+Plan My Holiday
+
+Add elegant scroll indicator.
+
+Navigation should initially be transparent.
+
+Navbar becomes blurred dark glass while scrolling.
+
+---
+
+# Navigation
+
+Sticky
+
+Glassmorphism
+
+Blur background
+
+Gold logo
+
+Minimal menu
+
+Hover underline animation
+
+Animated mobile menu
+
+Premium micro-interactions
+
+---
+
+# Homepage Sections
+
+Luxury Hero
+
+Featured Destinations
+
+Exclusive Memberships
+
+Curated Experiences
+
+Why Club Exotica
+
+Luxury Resorts Collection
+
+Travel Stories
+
+Client Testimonials
+
+Global Statistics
+
+Instagram Gallery
+
+FAQ
+
+Luxury Contact Section
+
+Elegant Footer
+
+---
+
+# Featured Destinations
+
+Create immersive destination cards.
+
+Each card contains:
+
+Large edge-to-edge image
+
+Destination
+
+Short emotional description
+
+Duration
+
+Luxury Rating
+
+Starting Price
+
+Explore button
+
+Hover effects:
+
+Image zoom
+
+Gradient overlay
+
+Elevation
+
+Smooth animation
+
+Examples:
+
+Maldives
+
+Santorini
+
+Dubai
+
+Bali
+
+Switzerland
+
+Paris
+
+Japan
+
+---
+
+# Membership Section
+
+Transform pricing tables into luxury membership experiences.
+
+Cards should include:
+
+Premium title
+
+Benefits
+
+Luxury icons
+
+Animated hover
+
+Comparison toggle
+
+Best value highlight
+
+Glass effect
+
+Gold borders
+
+Soft shadows
+
+---
+
+# Experiences Section
+
+Show experiences instead of products.
+
+Examples:
+
+Private Island Escapes
+
+Luxury Cruises
+
+Adventure Tours
+
+Honeymoon Packages
+
+Family Holidays
+
+Business Retreats
+
+Luxury Wellness
+
+Wildlife Safaris
+
+---
+
+# Trust Section
+
+Animated statistics
+
+25+ Years
+
+10,000+ Happy Travelers
+
+500+ Luxury Resorts
+
+80+ Countries
+
+4.9★ Customer Rating
+
+Include logos of trusted partners.
+
+---
+
+# Testimonials
+
+Large customer images
+
+Verified badge
+
+Star ratings
+
+Video testimonials
+
+Google Reviews integration
+
+Luxury card layout
+
+---
+
+# Gallery
+
+Pinterest-inspired masonry layout.
+
+Large cinematic travel images.
+
+Hover reveals destination and CTA.
+
+---
+
+# Footer
+
+Luxury multi-column footer.
+
+Quick Links
+
+Destinations
+
+Memberships
+
+Support
+
+Contact
+
+Social Media
+
+Newsletter
+
+Awards
+
+Privacy
+
+Terms
+
+Minimal copyright.
+
+---
+
+# Motion Design
+
+Use Framer Motion.
+
+Animations must feel expensive.
+
+Fade
+
+Slide
+
+Scale
+
+Parallax
+
+Image reveal
+
+Text reveal
+
+Mouse parallax
+
+Hover lift
+
+Floating effects
+
+Smooth scrolling
+
+Never over-animate.
+
+Luxury moves slowly.
+
+---
+
+# UI Components
+
+Glass cards
+
+Soft shadows
+
+Rounded corners (16–24px)
+
+Gradient borders
+
+Elegant buttons
+
+Premium badges
+
+Animated counters
+
+Luxury accordions
+
+Modern forms
+
+Interactive maps
+
+Sticky CTA
+
+Floating WhatsApp
+
+Premium booking widget
+
+---
+
+# Booking Experience
+
+Design a modern booking flow.
+
+Destination
+
+Dates
+
+Guests
+
+Budget
+
+Travel Type
+
+Submit Inquiry
+
+Luxury confirmation screen.
+
+---
+
+# Mobile Experience
+
+Pixel-perfect responsive layout.
+
+Thumb-friendly navigation.
+
+Smooth animations.
+
+Fast loading.
+
+No layout shifts.
+
+---
+
+# Performance
+
+Lighthouse score above 95.
+
+Lazy loading.
+
+Modern image formats.
+
+Optimized assets.
+
+SEO-first architecture.
+
+Accessibility compliant.
+
+---
+
+# Technical Stack
+
+React
+
+Next.js
+
+Tailwind CSS
+
+Framer Motion
+
+GSAP (only where appropriate)
+
+TypeScript
+
+Shadcn UI
+
+Lucide Icons
+
+Lenis smooth scrolling
+
+Swiper.js
+
+React Hook Form
+
+Zod validation
+
+Responsive design
+
+Dark mode support
+
+---
+
+# UX Requirements
+
+Every CTA should be obvious.
+
+Reduce cognitive load.
+
+Highlight premium memberships naturally.
+
+Guide users through a clear conversion journey.
+
+Optimize for inquiries rather than clicks.
+
+Design every section to increase trust.
+
+---
+
+# Deliverables
+
+Generate:
+
+1. Complete homepage
+2. Destination pages
+3. Membership pages
+4. About page
+5. Contact page
+6. Gallery page
+7. Testimonials page
+8. Booking flow
+9. Mobile design
+10. Tablet design
+11. Full design system
+12. Component library
+13. Color system
+14. Typography system
+15. Spacing system
+16. Icon system
+17. Animation guidelines
+18. Responsive layouts
+19. Accessibility improvements
+20. SEO-ready semantic structure
+
+The final result should feel worthy of winning an Awwwards Site of the Day, be visually unforgettable, and immediately communicate that Club Exotica is a world-class luxury travel brand. Every section should feel handcrafted, cinematic, elegant, emotionally engaging, and conversion-focused.
