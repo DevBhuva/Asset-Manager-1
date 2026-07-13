@@ -1,111 +1,109 @@
-import { Link, useLocation } from "wouter";
-import { useIsScrolled } from "@/hooks/use-is-scrolled";
-import { cn } from "@/lib/utils";
-import { Menu, X } from "lucide-react";
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-
-const links = [
-  { href: "/destinations", label: "Destinations" },
-  { href: "/experiences", label: "Experiences" },
-  { href: "/memberships", label: "Memberships" },
-  { href: "/gallery", label: "Gallery" },
-  { href: "/about", label: "Our Story" },
-];
+import { useEffect, useState } from 'react';
+import { Link, useLocation } from 'wouter';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Menu, X } from 'lucide-react';
+import { cn } from '@/lib/utils';
 
 export function Navbar() {
-  const isScrolled = useIsScrolled();
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [location] = useLocation();
-  const isHome = location === "/";
-  const [isOpen, setIsOpen] = useState(false);
 
-  // If we are on home page, navbar is transparent at top and becomes solid on scroll.
-  // On other pages, it's always solid.
-  const isTransparent = isHome && !isScrolled && !isOpen;
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const navLinks = [
+    { name: 'Destinations', path: '/destinations' },
+    { name: 'Experiences', path: '/experiences' },
+    { name: 'Privileges', path: '/memberships' },
+    { name: 'Journal', path: '/gallery' },
+  ];
+
+  const isLight = location === '/about' || location === '/terms'; // Example if we need dark text on some pages initially, but mostly we are dark background
 
   return (
     <>
-      <header
+      <motion.nav
+        initial={{ y: -100 }}
+        animate={{ y: 0 }}
+        transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
         className={cn(
-          "fixed top-0 left-0 right-0 z-50 transition-all duration-700 ease-in-out border-b",
-          isTransparent
-            ? "bg-transparent border-transparent text-white"
-            : "bg-background/95 backdrop-blur-md border-border text-foreground"
+          'fixed top-0 left-0 right-0 z-50 transition-colors duration-500',
+          isScrolled ? 'bg-background/90 backdrop-blur-md border-b border-white/5' : 'bg-transparent',
+          'py-6 px-8 md:px-16'
         )}
       >
-        <div className="container mx-auto px-6 h-24 flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-2 group">
-            <span className="font-serif text-2xl tracking-widest uppercase relative z-50">
-              Club Exotica
+        <div className="max-w-7xl mx-auto flex items-center justify-between">
+          <Link href="/" className="group flex items-center z-50">
+            <span className="font-serif text-2xl tracking-widest uppercase text-foreground">
+              Exotica
             </span>
           </Link>
 
           {/* Desktop Nav */}
-          <nav className="hidden md:flex items-center gap-10">
-            {links.map((link) => (
+          <div className="hidden md:flex items-center space-x-12">
+            {navLinks.map((link) => (
               <Link
-                key={link.href}
-                href={link.href}
-                className={cn(
-                  "text-sm tracking-widest uppercase transition-colors hover:text-accent",
-                  isTransparent ? "text-white/80 hover:text-white" : "text-muted-foreground hover:text-foreground"
-                )}
+                key={link.name}
+                href={link.path}
+                className="text-sm uppercase tracking-widest text-foreground/80 hover:text-primary transition-colors duration-300"
               >
-                {link.label}
+                {link.name}
+              </Link>
+            ))}
+          </div>
+
+          <div className="hidden md:flex items-center z-50">
+            <Link
+              href="/book"
+              className="text-sm uppercase tracking-widest border border-primary/50 text-primary px-6 py-3 hover:bg-primary hover:text-primary-foreground transition-all duration-300"
+            >
+              Begin Journey
+            </Link>
+          </div>
+
+          {/* Mobile Menu Toggle */}
+          <button
+            className="md:hidden z-50 text-foreground"
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          >
+            {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
+        </div>
+      </motion.nav>
+
+      {/* Mobile Menu */}
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: '-100%' }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: '-100%' }}
+            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+            className="fixed inset-0 z-40 bg-background flex flex-col items-center justify-center space-y-8"
+          >
+            {navLinks.map((link) => (
+              <Link
+                key={link.name}
+                href={link.path}
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="font-serif text-3xl text-foreground hover:text-primary transition-colors"
+              >
+                {link.name}
               </Link>
             ))}
             <Link
               href="/book"
-              className={cn(
-                "text-sm tracking-widest uppercase border px-6 py-3 transition-all duration-300",
-                isTransparent 
-                  ? "border-white/30 hover:border-white hover:bg-white hover:text-black" 
-                  : "border-primary text-primary hover:bg-primary hover:text-primary-foreground"
-              )}
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="font-serif text-3xl text-primary mt-8"
             >
-              Inquire
+              Begin Journey
             </Link>
-          </nav>
-
-          {/* Mobile Toggle */}
-          <button
-            className="md:hidden relative z-50 p-2"
-            onClick={() => setIsOpen(!isOpen)}
-          >
-            {isOpen ? <X className="w-6 h-6 text-foreground" /> : <Menu className="w-6 h-6" />}
-          </button>
-        </div>
-      </header>
-
-      {/* Mobile Menu Overlay */}
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-            className="fixed inset-0 z-40 bg-background flex flex-col items-center justify-center pt-24"
-          >
-            <nav className="flex flex-col items-center gap-8">
-              {links.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  onClick={() => setIsOpen(false)}
-                  className="font-serif text-3xl text-foreground hover:text-accent transition-colors"
-                >
-                  {link.label}
-                </Link>
-              ))}
-              <Link
-                href="/book"
-                onClick={() => setIsOpen(false)}
-                className="mt-8 text-sm tracking-widest uppercase border border-primary text-primary hover:bg-primary hover:text-primary-foreground px-8 py-4 transition-all"
-              >
-                Inquire Now
-              </Link>
-            </nav>
           </motion.div>
         )}
       </AnimatePresence>

@@ -1,73 +1,85 @@
-import { motion } from "framer-motion";
+import { motion } from 'framer-motion';
+import { Link } from 'wouter';
 
 const experiences = [
   {
-    title: "Private Island Escapes",
-    image: "/attached_assets/generated_images/private-island.jpg",
-    desc: "Complete isolation. We secure entire islands in the Indian Ocean, Caribbean, or South Pacific for your exclusive use, complete with dedicated staff and security."
+    title: 'Private Aviation',
+    desc: 'Bypass the terminals. We arrange seamless point-to-point travel via private jet and helicopter, ensuring your journey begins the moment you leave your door.',
+    img: '/images/helicopter-arrival.jpg',
+    layout: 'left'
   },
   {
-    title: "Ocean Expeditions",
-    image: "/attached_assets/generated_images/cruise.jpg",
-    desc: "Charter the world's most magnificent superyachts. Sail the Mediterranean or explore the dramatic coastlines of Antarctica with an expert crew and marine biologists."
+    title: 'Yacht Charters',
+    desc: 'Commandeer the seas. Access an exclusive fleet of superyachts with full crew, private chefs, and itineraries that chart untouched waters.',
+    img: '/images/yacht-cruise.jpg',
+    layout: 'right'
   },
   {
-    title: "Wellness & Renewal",
-    image: "/attached_assets/generated_images/wellness.jpg",
-    desc: "Transformative retreats in the Himalayas or the Swiss Alps. Ancient healing traditions paired with cutting-edge medical wellness in profound silence."
+    title: 'Wellness Sanctuaries',
+    desc: 'Retreat from the world. Immerse yourself in restorative environments designed to heal mind and body, surrounded by breathtaking natural beauty.',
+    img: '/images/wellness-spa.jpg',
+    layout: 'left'
   },
   {
-    title: "Bespoke Safari",
-    image: "/attached_assets/generated_images/safari.jpg",
-    desc: "Witness the great migrations from the comfort of ultra-luxury camps. Private guides, breathtaking aerial tours, and dinners under the African sky."
+    title: 'Culinary Journeys',
+    desc: 'Taste the impossible. Private dinners on secluded beaches, exclusive access to closed-door vineyards, and meals prepared by Michelin-starred chefs in your villa.',
+    img: '/images/dinner-sunset.jpg',
+    layout: 'right'
   }
 ];
 
 export function Experiences() {
   return (
-    <div className="pt-32 pb-24 bg-background min-h-screen">
-      <div className="container mx-auto px-6">
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
+    <div className="bg-background min-h-screen pt-32 pb-24 text-foreground">
+      <div className="max-w-7xl mx-auto px-8 md:px-16">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="mb-24"
+          transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+          className="mb-24 text-center max-w-4xl mx-auto"
         >
-          <h1 className="font-serif text-5xl md:text-7xl mb-8 text-primary max-w-4xl">Curated Experiences</h1>
-          <p className="text-xl text-muted-foreground leading-relaxed max-w-2xl">
-            We don't offer packages. We offer blank canvases. These themes serve merely as inspiration for what our design team can orchestrate.
+          <span className="font-sans text-xs uppercase tracking-[0.3em] text-primary mb-6 block">
+            Signature Experiences
+          </span>
+          <h1 className="font-serif text-5xl md:text-7xl mb-8 leading-tight">
+            The art of <br/><span className="italic text-muted-foreground">living fully.</span>
+          </h1>
+          <p className="font-light text-muted-foreground text-lg leading-relaxed max-w-2xl mx-auto">
+            We don't sell trips; we curate moments that take your breath away. Our signature experiences are entirely bespoke, designed around your distinct rhythm and desires.
           </p>
         </motion.div>
 
-        <div className="space-y-32">
-          {experiences.map((exp, idx) => (
-            <div key={idx} className={`flex flex-col lg:flex-row gap-16 items-center ${idx % 2 !== 0 ? 'lg:flex-row-reverse' : ''}`}>
-              <motion.div 
-                className="w-full lg:w-1/2"
-                initial={{ opacity: 0, x: idx % 2 === 0 ? -30 : 30 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true, margin: "-100px" }}
-                transition={{ duration: 1 }}
+        <div className="space-y-32 md:space-y-48 pb-32">
+          {experiences.map((exp, i) => (
+            <div key={exp.title} className={`flex flex-col ${exp.layout === 'left' ? 'md:flex-row' : 'md:flex-row-reverse'} items-center gap-16 md:gap-24`}>
+              <motion.div
+                initial={{ opacity: 0, scale: 0.95 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true, margin: "-10%" }}
+                transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
+                className="w-full md:w-1/2 aspect-[4/5] relative overflow-hidden"
               >
-                <div className="aspect-[4/3] overflow-hidden bg-muted">
-                  <img src={exp.image} alt={exp.title} className="w-full h-full object-cover" />
-                </div>
+                <img src={exp.img} alt={exp.title} className="w-full h-full object-cover" />
               </motion.div>
-              
-              <motion.div 
-                className="w-full lg:w-1/2"
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-100px" }}
-                transition={{ duration: 1, delay: 0.2 }}
+
+              <motion.div
+                initial={{ opacity: 0, x: exp.layout === 'left' ? 30 : -30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, margin: "-10%" }}
+                transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+                className="w-full md:w-1/2"
               >
-                <h2 className="font-serif text-4xl mb-6 text-primary">{exp.title}</h2>
-                <p className="text-lg text-muted-foreground leading-relaxed mb-8">
+                <span className="font-sans text-xs uppercase tracking-[0.3em] text-primary mb-6 block">
+                  {String(i + 1).padStart(2, '0')}
+                </span>
+                <h2 className="font-serif text-4xl md:text-5xl mb-6">{exp.title}</h2>
+                <p className="font-light text-muted-foreground text-lg leading-relaxed mb-10 max-w-md">
                   {exp.desc}
                 </p>
-                <a href="/book" className="text-sm tracking-[0.2em] uppercase text-primary border-b border-primary/20 pb-1 hover:border-primary transition-colors">
-                  Inquire About This Experience
-                </a>
+                <Link href="/book" className="group inline-flex items-center space-x-4">
+                  <span className="text-sm uppercase tracking-widest text-foreground group-hover:text-primary transition-colors">Inquire</span>
+                  <span className="w-12 h-[1px] bg-foreground group-hover:bg-primary transition-colors transform group-hover:translate-x-2 duration-300" />
+                </Link>
               </motion.div>
             </div>
           ))}

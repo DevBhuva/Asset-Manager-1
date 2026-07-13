@@ -1,63 +1,58 @@
-import { motion } from "framer-motion";
+import { motion } from 'framer-motion';
 
 const testimonials = [
   {
-    quote: "We thought we knew luxury travel until we traveled with Club Exotica. The attention to detail is staggering. They knew exactly how we liked our morning coffee in a remote lodge where there wasn't even a menu.",
-    author: "E.R.",
-    location: "London, UK"
+    quote: "I’ve stayed in the finest suites in the world, but the private island Exotica secured for our family was something beyond luxury. It was complete, unbothered peace.",
+    author: "J. Mercer",
+    role: "Member since 2019"
   },
   {
-    quote: "The seamlessness of it all. From the tarmac to the villa, we never touched a bag, never waited in a line, never had to ask for anything twice. It felt like magic.",
-    author: "A. & M. T.",
-    location: "New York, USA"
+    quote: "When our flight was grounded due to weather, my Curator had a helicopter waiting before I even knew there was a problem. That is what true service looks like.",
+    author: "E. Kensington",
+    role: "Member since 2021"
   },
   {
-    quote: "They managed to secure an after-hours private viewing of the Sistine Chapel for our anniversary. The silence of that room, just the two of us... an experience we will carry forever.",
-    author: "J.H.",
-    location: "Geneva, Switzerland"
-  },
-  {
-    quote: "A true masterclass in hospitality. The team at Exotica operates with a quiet, invisible precision that allows you to simply exist in the moment without a single distraction.",
-    author: "S.K.",
-    location: "Singapore"
+    quote: "We asked for a private dinner in the desert. We didn’t expect a Michelin-starred chef, a string quartet, and a telescope perfectly aligned with Saturn. Speechless.",
+    author: "T. & M. Vance",
+    role: "Members since 2018"
   }
 ];
 
 export function Testimonials() {
   return (
-    <div className="pt-32 pb-24 px-6 min-h-screen bg-secondary/30">
-      <div className="container mx-auto max-w-5xl">
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
+    <div className="bg-background min-h-screen pt-32 pb-24 text-foreground">
+      <div className="max-w-7xl mx-auto px-8 md:px-16">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="text-center mb-24"
+          transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+          className="mb-24 text-center max-w-3xl mx-auto"
         >
-          <h1 className="font-serif text-5xl md:text-7xl mb-8 text-primary">In Their Words</h1>
-          <p className="text-xl text-muted-foreground">The quiet trust of those who demand the exceptional.</p>
+          <span className="font-sans text-xs uppercase tracking-[0.3em] text-primary mb-6 block">
+            Stories from our Travelers
+          </span>
+          <h1 className="font-serif text-5xl md:text-7xl mb-8 leading-tight">
+            Words from the <br/><span className="italic text-muted-foreground">inner circle.</span>
+          </h1>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-20">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-16 md:gap-12">
           {testimonials.map((t, i) => (
             <motion.div
               key={i}
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: i * 0.1 }}
-              className="flex flex-col"
+              viewport={{ once: true, margin: "-10%" }}
+              transition={{ duration: 1, delay: i * 0.2, ease: [0.16, 1, 0.3, 1] }}
+              className="flex flex-col h-full"
             >
-              <div className="mb-8">
-                <svg className="w-10 h-10 text-accent/30" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
-                </svg>
-              </div>
-              <p className="font-serif text-2xl leading-relaxed text-primary mb-8 flex-grow">
-                "{t.quote}"
+              <div className="text-primary text-4xl font-serif mb-6">"</div>
+              <p className="font-light text-xl leading-relaxed mb-8 flex-grow">
+                {t.quote}
               </p>
-              <div>
-                <p className="text-sm tracking-[0.2em] uppercase text-primary font-semibold">{t.author}</p>
-                <p className="text-sm text-muted-foreground">{t.location}</p>
+              <div className="border-t border-white/10 pt-6">
+                <p className="font-sans text-sm uppercase tracking-widest text-foreground">{t.author}</p>
+                <p className="font-light text-xs text-muted-foreground mt-2">{t.role}</p>
               </div>
             </motion.div>
           ))}

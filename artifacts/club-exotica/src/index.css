@@ -2,7 +2,7 @@
 @import 'tw-animate-css';
 @plugin "@tailwindcss/typography";
 
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap');
 
 @custom-variant dark (&:is(.dark *));
 
@@ -46,71 +46,47 @@
 }
 
 :root {
-  /* Aman-inspired calm, neutral, understated luxury palette */
-  /* Background: subtle warm stone/sand */
-  --background: 45 15% 96%;
-  /* Foreground: charcoal/ink, not pure black */
-  --foreground: 0 0% 12%;
+  /* Deep charcoal + warm ivory + sparing gold */
+  
+  /* Background: Deep charcoal */
+  --background: 0 0% 8%;
+  --foreground: 40 33% 96%; /* Warm ivory text */
 
-  --card: 45 15% 98%;
-  --card-foreground: 0 0% 12%;
-  --card-border: 45 5% 85%;
+  --card: 0 0% 10%;
+  --card-foreground: 40 33% 96%;
+  --card-border: 0 0% 15%;
 
-  --popover: 45 15% 98%;
-  --popover-foreground: 0 0% 12%;
-  --popover-border: 45 5% 85%;
+  --popover: 0 0% 10%;
+  --popover-foreground: 40 33% 96%;
+  --popover-border: 0 0% 15%;
 
-  /* Primary: Deep muted olive / forest / charcoal */
-  --primary: 0 0% 10%;
-  --primary-foreground: 45 15% 96%;
+  /* Primary: Gold */
+  --primary: 43 60% 55%; 
+  --primary-foreground: 0 0% 8%;
 
-  /* Secondary: Soft beige / stone */
-  --secondary: 40 10% 88%;
-  --secondary-foreground: 0 0% 15%;
+  /* Secondary: Warm Ivory (used for light sections) */
+  --secondary: 40 33% 96%;
+  --secondary-foreground: 0 0% 8%;
 
-  --muted: 40 10% 90%;
-  --muted-foreground: 0 0% 40%;
+  /* Muted: Lighter charcoal */
+  --muted: 0 0% 15%;
+  --muted-foreground: 40 10% 70%;
 
-  /* Accent: Muted bronze/gold */
-  --accent: 35 25% 45%;
-  --accent-foreground: 45 15% 96%;
+  /* Accent: Muted Gold/Bronze */
+  --accent: 43 40% 40%;
+  --accent-foreground: 40 33% 96%;
 
   --destructive: 0 60% 45%;
-  --destructive-foreground: 45 15% 96%;
+  --destructive-foreground: 40 33% 96%;
 
-  --border: 40 10% 85%;
-  --input: 40 10% 85%;
-  --ring: 0 0% 10%;
+  --border: 0 0% 20%;
+  --input: 0 0% 20%;
+  --ring: 43 60% 55%;
 
   --app-font-sans: 'DM Sans', sans-serif;
   --app-font-serif: 'Cormorant Garamond', serif;
   
-  --radius: 0rem; /* Sharp edges for luxury feel */
-}
-
-/* We force light mode for this luxury site to keep the editorial feel, unless specifically requested. We'll leave .dark as is but we won't use it. */
-.dark {
-  --background: 0 0% 12%;
-  --foreground: 45 15% 96%;
-  --card: 0 0% 14%;
-  --card-foreground: 45 15% 96%;
-  --card-border: 0 0% 20%;
-  --popover: 0 0% 14%;
-  --popover-foreground: 45 15% 96%;
-  --popover-border: 0 0% 20%;
-  --primary: 45 15% 96%;
-  --primary-foreground: 0 0% 12%;
-  --secondary: 0 0% 20%;
-  --secondary-foreground: 45 15% 96%;
-  --muted: 0 0% 20%;
-  --muted-foreground: 0 0% 70%;
-  --accent: 35 25% 55%;
-  --accent-foreground: 0 0% 10%;
-  --destructive: 0 60% 45%;
-  --destructive-foreground: 45 15% 96%;
-  --border: 0 0% 25%;
-  --input: 0 0% 25%;
-  --ring: 45 15% 96%;
+  --radius: 0rem;
 }
 
 @layer base {
@@ -118,33 +94,50 @@
     @apply border-border;
   }
   body {
-    @apply font-sans antialiased bg-background text-foreground;
+    @apply font-sans antialiased bg-background text-foreground overflow-x-hidden;
   }
   h1, h2, h3, h4, h5, h6 {
-    @apply font-serif tracking-tight;
+    @apply font-serif tracking-tight font-normal;
   }
 }
 
-/* Custom Utilities for cinematic text */
 .text-balance {
   text-wrap: balance;
 }
 
-/* Smooth scrolling */
-html {
-  scroll-behavior: smooth;
+/* Lenis recommended CSS */
+html.lenis, html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
 }
 
-/* Restrained animations */
-.fade-in-up {
-  animation: fadeInUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-  opacity: 0;
-  transform: translateY(20px);
+/* Custom cinematic utilities */
+.clip-text-gold {
+  background: linear-gradient(135deg, hsl(43 80% 70%), hsl(43 60% 45%));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
-@keyframes fadeInUp {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.bg-ivory {
+  background-color: hsl(40 33% 96%);
+  color: hsl(0 0% 8%);
+}
+.bg-ivory * {
+  border-color: hsl(0 0% 85%);
+}
+
+.bg-charcoal {
+  background-color: hsl(0 0% 8%);
+  color: hsl(40 33% 96%);
 }

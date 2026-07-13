@@ -1,121 +1,178 @@
-import { motion, AnimatePresence } from "framer-motion";
-import { useState } from "react";
-import { useLocation } from "wouter";
+import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Check } from 'lucide-react';
+
+const steps = [
+  { id: 'destination', question: 'Where do you dream of going?' },
+  { id: 'time', question: 'When do you want to travel?' },
+  { id: 'party', question: 'Who are you travelling with?' },
+  { id: 'vibe', question: "What's your preferred experience?" },
+  { id: 'budget', question: 'What is your anticipated investment?' },
+  { id: 'contact', question: 'How may your Curator reach you?' }
+];
+
+const options = {
+  destination: ['Maldives', 'Swiss Alps', 'African Safari', 'Mediterranean Coast', 'Private Island', 'Undecided'],
+  time: ['Next 3 Months', '3-6 Months', '6-12 Months', 'Next Year', 'Flexible'],
+  party: ['Solo', 'Couple', 'Family', 'Group of Friends', 'Corporate Retreat'],
+  vibe: ['Beach & Wellness', 'Mountains & Ski', 'Adventure & Safari', 'Romance', 'Culture & History', 'Yacht Charter'],
+  budget: ['$25k - $50k', '$50k - $100k', '$100k - $250k', '$250k+', 'No Limit']
+};
 
 export function Contact() {
-  const [search] = useLocation();
-  const searchParams = new URLSearchParams(window.location.search);
-  const defaultDestination = searchParams.get("destination") || "";
-  const defaultType = searchParams.get("type") || "leisure";
+  const [currentStep, setCurrentStep] = useState(0);
+  const [selections, setSelections] = useState<Record<string, string>>({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
+  const [contactInfo, setContactInfo] = useState({ name: '', email: '', phone: '' });
 
-  const [isSubmitted, setIsSubmitted] = useState(false);
-  
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // Simulate an API call
+  const handleSelect = (key: string, value: string) => {
+    setSelections({ ...selections, [key]: value });
     setTimeout(() => {
-      setIsSubmitted(true);
-    }, 800);
+      if (currentStep < steps.length - 1) {
+        setCurrentStep(currentStep + 1);
+      }
+    }, 400);
   };
 
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    // Simulate API call
+    setTimeout(() => {
+      setIsSubmitting(false);
+      setIsSuccess(true);
+    }, 1500);
+  };
+
+  if (isSuccess) {
+    return (
+      <div className="bg-background min-h-screen pt-32 pb-24 text-foreground flex items-center justify-center">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          className="max-w-2xl text-center px-8"
+        >
+          <div className="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-8 text-primary">
+            <Check size={32} />
+          </div>
+          <h1 className="font-serif text-4xl md:text-5xl mb-6">Journey Initiated.</h1>
+          <p className="text-muted-foreground font-light text-lg mb-8">
+            Your Personal Travel Curator Will Contact You Within 24 Hours to begin designing your extraordinary experience.
+          </p>
+        </motion.div>
+      </div>
+    );
+  }
+
+  const currentKey = steps[currentStep].id as keyof typeof options;
+  const currentOptions = options[currentKey];
+
   return (
-    <div className="min-h-screen bg-background pt-32 pb-24 px-6 flex flex-col items-center">
-      <div className="container mx-auto max-w-2xl relative">
-        <AnimatePresence mode="wait">
-          {!isSubmitted ? (
-            <motion.div
-              key="form"
+    <div className="bg-background min-h-screen pt-40 pb-24 text-foreground relative overflow-hidden">
+      <div className="absolute top-0 left-0 w-full h-1 bg-white/5">
+        <motion.div
+          className="h-full bg-primary"
+          initial={{ width: 0 }}
+          animate={{ width: `${((currentStep) / steps.length) * 100}%` }}
+          transition={{ duration: 0.5 }}
+        />
+      </div>
+
+      <div className="max-w-4xl mx-auto px-8 md:px-16">
+        <div className="mb-16">
+          <span className="font-sans text-xs uppercase tracking-[0.3em] text-primary mb-4 block">
+            Step {currentStep + 1} of {steps.length}
+          </span>
+          <AnimatePresence mode="wait">
+            <motion.h1
+              key={currentStep}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.5 }}
+              transition={{ duration: 0.4 }}
+              className="font-serif text-4xl md:text-6xl"
             >
-              <div className="text-center mb-16">
-                <h1 className="font-serif text-4xl md:text-5xl mb-6 text-primary">Begin the Conversation</h1>
-                <p className="text-muted-foreground">
-                  Our private concierges are ready to craft your next experience. Please share a few details below, and a senior director will be in touch shortly.
-                </p>
-              </div>
+              {steps[currentStep].question}
+            </motion.h1>
+          </AnimatePresence>
+        </div>
 
-              <form onSubmit={handleSubmit} className="space-y-8">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                  <div className="space-y-2">
-                    <label className="text-xs tracking-[0.1em] uppercase text-muted-foreground">First Name</label>
-                    <input required type="text" className="w-full bg-transparent border-b border-border py-3 px-0 focus:outline-none focus:border-primary transition-colors rounded-none placeholder:text-muted/50" placeholder="e.g. James" />
-                  </div>
-                  <div className="space-y-2">
-                    <label className="text-xs tracking-[0.1em] uppercase text-muted-foreground">Last Name</label>
-                    <input required type="text" className="w-full bg-transparent border-b border-border py-3 px-0 focus:outline-none focus:border-primary transition-colors rounded-none placeholder:text-muted/50" placeholder="e.g. Sterling" />
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                  <div className="space-y-2">
-                    <label className="text-xs tracking-[0.1em] uppercase text-muted-foreground">Email Address</label>
-                    <input required type="email" className="w-full bg-transparent border-b border-border py-3 px-0 focus:outline-none focus:border-primary transition-colors rounded-none placeholder:text-muted/50" placeholder="james@example.com" />
-                  </div>
-                  <div className="space-y-2">
-                    <label className="text-xs tracking-[0.1em] uppercase text-muted-foreground">Phone Number</label>
-                    <input type="tel" className="w-full bg-transparent border-b border-border py-3 px-0 focus:outline-none focus:border-primary transition-colors rounded-none placeholder:text-muted/50" placeholder="+1 (555) 000-0000" />
-                  </div>
-                </div>
-
-                <div className="space-y-2">
-                  <label className="text-xs tracking-[0.1em] uppercase text-muted-foreground">Inquiry Type</label>
-                  <select defaultValue={defaultType} className="w-full bg-transparent border-b border-border py-3 px-0 focus:outline-none focus:border-primary transition-colors rounded-none appearance-none">
-                    <option value="leisure">Bespoke Travel Inquiry</option>
-                    <option value="membership_voyager">Voyager Membership Application</option>
-                    <option value="membership_reserve">Exotica Reserve Invitation Request</option>
-                    <option value="corporate">Corporate Retreat / Executive Travel</option>
-                    <option value="other">General Inquiry</option>
-                  </select>
-                </div>
-
-                <div className="space-y-2">
-                  <label className="text-xs tracking-[0.1em] uppercase text-muted-foreground">Destination of Interest</label>
-                  <input defaultValue={defaultDestination} type="text" className="w-full bg-transparent border-b border-border py-3 px-0 focus:outline-none focus:border-primary transition-colors rounded-none placeholder:text-muted/50" placeholder="e.g. The Maldives, or leave blank if undecided" />
-                </div>
-
-                <div className="space-y-2">
-                  <label className="text-xs tracking-[0.1em] uppercase text-muted-foreground">Anticipated Travel Dates & Guests</label>
-                  <input type="text" className="w-full bg-transparent border-b border-border py-3 px-0 focus:outline-none focus:border-primary transition-colors rounded-none placeholder:text-muted/50" placeholder="e.g. October, 2 Adults" />
-                </div>
-
-                <div className="space-y-2">
-                  <label className="text-xs tracking-[0.1em] uppercase text-muted-foreground">Additional Notes</label>
-                  <textarea rows={4} className="w-full bg-transparent border-b border-border py-3 px-0 focus:outline-none focus:border-primary transition-colors rounded-none resize-none placeholder:text-muted/50" placeholder="Please share any specific requirements, preferences, or occasions..."></textarea>
-                </div>
-
-                <div className="pt-8 text-center">
-                  <button type="submit" className="bg-primary text-primary-foreground border border-primary px-12 py-4 text-sm tracking-[0.2em] uppercase hover:bg-transparent hover:text-primary transition-colors w-full md:w-auto">
-                    Submit Request
+        <div className="min-h-[400px]">
+          <AnimatePresence mode="wait">
+            {currentStep < steps.length - 1 ? (
+              <motion.div
+                key={`options-${currentStep}`}
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -20 }}
+                transition={{ duration: 0.4 }}
+                className="grid grid-cols-1 md:grid-cols-2 gap-4"
+              >
+                {currentOptions.map((opt) => (
+                  <button
+                    key={opt}
+                    onClick={() => handleSelect(currentKey, opt)}
+                    className={`text-left p-6 border transition-all duration-300 ${
+                      selections[currentKey] === opt
+                        ? 'border-primary bg-primary/5 text-primary'
+                        : 'border-white/10 hover:border-primary/50 text-foreground/80 hover:text-foreground'
+                    }`}
+                  >
+                    <span className="font-serif text-2xl">{opt}</span>
                   </button>
-                  <p className="text-xs text-muted-foreground mt-6 max-w-sm mx-auto">
-                    By submitting this form, you acknowledge our commitment to absolute discretion and privacy.
-                  </p>
+                ))}
+              </motion.div>
+            ) : (
+              <motion.form
+                key="form"
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -20 }}
+                transition={{ duration: 0.4 }}
+                onSubmit={handleSubmit}
+                className="space-y-8 max-w-xl"
+              >
+                <div>
+                  <label className="block text-xs uppercase tracking-[0.2em] text-muted-foreground mb-2">Name</label>
+                  <input
+                    required
+                    type="text"
+                    className="w-full bg-transparent border-b border-white/20 pb-4 text-xl focus:outline-none focus:border-primary transition-colors"
+                    value={contactInfo.name}
+                    onChange={(e) => setContactInfo({ ...contactInfo, name: e.target.value })}
+                  />
                 </div>
-              </form>
-            </motion.div>
-          ) : (
-            <motion.div
-              key="success"
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.8, ease: "easeOut" }}
-              className="text-center py-24"
-            >
-              <div className="w-16 h-16 border-2 border-accent rounded-full flex items-center justify-center mx-auto mb-8">
-                <svg className="w-6 h-6 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                </svg>
-              </div>
-              <h2 className="font-serif text-4xl mb-6 text-primary">Your Inquiry is Received</h2>
-              <p className="text-muted-foreground text-lg max-w-md mx-auto leading-relaxed">
-                Thank you. A senior director from our private concierge team will review your details and contact you shortly to begin designing your experience.
-              </p>
-            </motion.div>
-          )}
-        </AnimatePresence>
+                <div>
+                  <label className="block text-xs uppercase tracking-[0.2em] text-muted-foreground mb-2">Email Address</label>
+                  <input
+                    required
+                    type="email"
+                    className="w-full bg-transparent border-b border-white/20 pb-4 text-xl focus:outline-none focus:border-primary transition-colors"
+                    value={contactInfo.email}
+                    onChange={(e) => setContactInfo({ ...contactInfo, email: e.target.value })}
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs uppercase tracking-[0.2em] text-muted-foreground mb-2">Phone Number (Optional)</label>
+                  <input
+                    type="tel"
+                    className="w-full bg-transparent border-b border-white/20 pb-4 text-xl focus:outline-none focus:border-primary transition-colors"
+                    value={contactInfo.phone}
+                    onChange={(e) => setContactInfo({ ...contactInfo, phone: e.target.value })}
+                  />
+                </div>
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="w-full mt-8 border border-primary text-primary hover:bg-primary hover:text-primary-foreground py-6 text-sm uppercase tracking-[0.2em] transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  {isSubmitting ? 'Submitting...' : 'Request Consultation'}
+                </button>
+              </motion.form>
+            )}
+          </AnimatePresence>
+        </div>
       </div>
     </div>
   );

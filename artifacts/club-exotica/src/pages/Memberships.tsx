@@ -1,102 +1,75 @@
-import { motion } from "framer-motion";
-import { Link } from "wouter";
-import { Check } from "lucide-react";
+import { motion } from 'framer-motion';
+import { Link } from 'wouter';
 
 export function Memberships() {
   return (
-    <div className="pt-32 pb-24 px-6 min-h-screen bg-background">
-      <div className="container mx-auto">
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
+    <div className="bg-background min-h-screen pt-32 pb-24 text-foreground">
+      <div className="max-w-7xl mx-auto px-8 md:px-16">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="text-center max-w-3xl mx-auto mb-24"
+          transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+          className="mb-24 md:mb-32 max-w-3xl"
         >
-          <h1 className="font-serif text-5xl md:text-7xl mb-8 text-primary">The Inner Circle</h1>
-          <p className="text-xl text-muted-foreground leading-relaxed">
-            More than a service, an invitation to a life less ordinary. Our memberships are strictly limited to ensure uncompromising attention for each family we serve.
+          <span className="font-sans text-xs uppercase tracking-[0.3em] text-primary mb-6 block">
+            Member Privileges
+          </span>
+          <h1 className="font-serif text-5xl md:text-7xl mb-8 leading-tight">
+            An inner circle <br/><span className="italic text-muted-foreground">of global access.</span>
+          </h1>
+          <p className="font-light text-muted-foreground text-lg leading-relaxed">
+            Club Exotica membership is strictly by invitation or referral. It grants access not just to extraordinary places, but to extraordinary treatment—doors open, tables clear, and the impossible becomes routine.
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-5xl mx-auto">
-          {/* Tier 1 */}
-          <motion.div 
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-            className="border border-border bg-card p-12 flex flex-col"
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-16 md:gap-32 items-center mb-32">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true, margin: "-10%" }}
+            transition={{ duration: 1.5 }}
+            className="aspect-[3/4] relative overflow-hidden"
           >
-            <div className="mb-12">
-              <h2 className="font-serif text-3xl text-primary mb-4">Voyager</h2>
-              <p className="text-muted-foreground">For those who travel often and expect perfection at every turn.</p>
-            </div>
-            
-            <ul className="space-y-6 mb-16 flex-grow">
-              {[
-                "Dedicated Private Travel Concierge",
-                "Priority booking at all partnered resorts",
-                "Complimentary room upgrades when available",
-                "Exclusive access to unlisted properties",
-                "Curated local experiences and reservations",
-                "24/7 global support during travel"
-              ].map((feature, i) => (
-                <li key={i} className="flex items-start gap-4 text-foreground/80">
-                  <Check className="w-5 h-5 text-accent shrink-0 mt-0.5" />
-                  <span>{feature}</span>
-                </li>
-              ))}
-            </ul>
-
-            <Link 
-              href="/book?type=membership_voyager" 
-              className="block text-center border border-primary px-8 py-4 text-sm tracking-[0.2em] uppercase hover:bg-primary hover:text-white transition-colors"
-            >
-              Apply for Voyager
-            </Link>
+            <img src="/images/private-island.jpg" alt="Exclusive Access" className="w-full h-full object-cover" />
           </motion.div>
-
-          {/* Tier 2 */}
-          <motion.div 
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="bg-primary text-primary-foreground p-12 flex flex-col relative overflow-hidden"
+          
+          <motion.div
+            initial={{ opacity: 0, x: 30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-10%" }}
+            transition={{ duration: 1.2 }}
           >
-            <div className="absolute top-0 right-0 p-8">
-              <span className="text-xs tracking-[0.2em] uppercase text-accent font-semibold">Invitation Only</span>
-            </div>
-            <div className="mb-12 relative z-10">
-              <h2 className="font-serif text-3xl text-white mb-4">Exotica Reserve</h2>
-              <p className="text-white/70">The ultimate expression of luxury travel. Strictly capped at 100 members globally.</p>
-            </div>
-            
-            <ul className="space-y-6 mb-16 flex-grow relative z-10">
+            <h2 className="font-serif text-3xl mb-12">The Privileges</h2>
+            <ul className="space-y-12">
               {[
-                "All Voyager privileges included",
-                "Senior Partner as your personal travel director",
-                "Guaranteed upgrades at all properties",
-                "Access to the Reserve Private Aviation Fleet",
-                "Bespoke private island buy-out facilitation",
-                "Invitations to exclusive global events",
-                "Blank-canvas itinerary design"
-              ].map((feature, i) => (
-                <li key={i} className="flex items-start gap-4 text-white/90">
-                  <Check className="w-5 h-5 text-accent shrink-0 mt-0.5" />
-                  <span>{feature}</span>
+                { title: "Priority Access", desc: "First rights to reserve newly discovered properties and limited-edition expeditions before they are announced." },
+                { title: "Dedicated Curator", desc: "A singular point of contact who knows your preferences intimately, available 24/7 in any time zone." },
+                { title: "Unpublished Rates", desc: "Access to private aviation fleets, superyachts, and exclusive villas at proprietary member pricing." }
+              ].map((item, i) => (
+                <li key={i} className="border-t border-white/10 pt-6">
+                  <h3 className="font-serif text-2xl mb-3 text-primary">{item.title}</h3>
+                  <p className="font-light text-muted-foreground">{item.desc}</p>
                 </li>
               ))}
             </ul>
-
-            <Link 
-              href="/book?type=membership_reserve" 
-              className="block text-center border border-white/30 px-8 py-4 text-sm tracking-[0.2em] uppercase bg-white text-primary hover:bg-transparent hover:text-white transition-colors relative z-10"
-            >
-              Request Invitation
-            </Link>
           </motion.div>
         </div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 1.2 }}
+          className="bg-ivory text-black p-16 md:p-24 text-center max-w-4xl mx-auto"
+        >
+          <h2 className="font-serif text-4xl md:text-5xl mb-6">Request an Invitation</h2>
+          <p className="font-light text-black/70 mb-10 max-w-lg mx-auto">
+            Membership is currently capped to ensure impeccable service for our existing clients. Applications are reviewed quarterly.
+          </p>
+          <Link href="/book" className="inline-block border border-black px-8 py-4 text-sm uppercase tracking-[0.2em] hover:bg-black hover:text-white transition-colors duration-300">
+            Submit Inquiry
+          </Link>
+        </motion.div>
       </div>
     </div>
   );
